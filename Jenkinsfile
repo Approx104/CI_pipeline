@@ -13,42 +13,42 @@ pipeline {
         stage('run rest app') {
             steps {
                 script {
-                    bat 'start /min python rest_app.py'
+                    bat 'start /min python pythonProject\rest_app.py'
                 }
             }
         }
         stage('run web app') {
             steps {
                 script {
-                    bat 'start /min python web_app.py'
+                    bat 'start /min python pythonProject\web_app.py'
                 }
             }
         }
         stage('run backend testing') {
             steps {
                 script {
-                    bat 'python backend_testing.py'
+                    bat 'pythonProject\backend_testing.py'
                 }
             }
         }
         stage('run frontend testing') {
             steps {
                 script {
-                    bat 'python frontend_testing.py'
+                    bat 'pythonProject\frontend_testing.py'
                 }
             }
         }
         stage('run combined testing') {
             steps {
                 script {
-                    bat 'python combined_testing.py'
+                    bat 'pythonProject\combined_testing.py'
                 }
             }
         }
         stage('run clean') {
             steps {
                 script {
-                    bat 'python clean_environment.py'
+                    bat 'pythonProject\clean_environment.py'
                 }
             }
         }
