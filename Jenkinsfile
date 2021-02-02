@@ -6,7 +6,8 @@ pipeline {
                 script {
                     properties([pipelineTriggers([pollSCM('* * * * *')])])
                 }
-                git 'https://github.com/Approx104/Python-frontend-and-backend-stack.git'
+                git url: 'git://github.com/Approx104/Python-frontend-and-backend-stack',
+                     branch: 'main'
             }
         }
         stage('run python') {
