@@ -10,14 +10,45 @@ pipeline {
                      branch: 'main'
             }
         }
-        stage('run python') {
+        stage('run rest app') {
             steps {
                 script {
-                    if (Boolean.valueOf(env.UNIX)) {
-                        sh 'python 1.py'
-                    } else {
-                        bat 'python 1.py'
-                    }
+                    bat 'start /min python rest_app.py'
+                }
+            }
+        }
+        stage('run web app') {
+            steps {
+                script {
+                    bat 'start /min python web_app.py'
+                }
+            }
+        }
+        stage('run backend testing') {
+            steps {
+                script {
+                    bat 'backend_testing.py'
+                }
+            }
+        }
+        stage('run frontend testing') {
+            steps {
+                script {
+                    bat 'frontend_testing.py'
+                }
+            }
+        }
+        stage('run combined testing') {
+            steps {
+                script {
+                    bat 'combined_testing.py'
+                }
+            }
+        }
+        stage('run clean') {
+            steps {
+                script {
+                    bat 'clean_environment.py'
                 }
             }
         }
