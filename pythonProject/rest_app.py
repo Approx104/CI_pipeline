@@ -32,7 +32,7 @@ def user(user_id):
             cursor.execute('SELECT user_name FROM sys.users WHERE user_id = '"{}"''.format(user_id))
             my_result = get_user_name_from_db(user_id)
             return {'status': 'ok', 'user_name': my_result[0]}, 200  # status code
-        except IndexError:
+        except TypeError:
             return {'status': 'error', 'reason': 'no such id'}, 500  # status code
 
     # POST
