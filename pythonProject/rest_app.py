@@ -8,13 +8,13 @@ app = Flask(__name__)
 
 # Get user name from DB with user ID
 def get_user_name_from_db(user_id):
-    cursor.execute('SELECT user_name FROM 7n3ZZQTFqz.users WHERE user_id = '"{}"''.format(user_id))
+    cursor.execute('SELECT user_name FROM sys.users WHERE user_id = '"{}"''.format(user_id))
     return cursor.fetchone()
 
 
 # Check if user exists
 def check_user(user_id):
-    cursor.execute('SELECT user_name FROM 7n3ZZQTFqz.users WHERE user_id = '"{}"''.format(user_id))
+    cursor.execute('SELECT user_name FROM sys.users WHERE user_id = '"{}"''.format(user_id))
     my_result = cursor.fetchall()
     id_to_index = int(user_id) - 1
     get_error = my_result[id_to_index]
@@ -27,7 +27,7 @@ def user(user_id):
     if request.method == 'GET':
         try:
             # Query user name from DB
-            cursor.execute('SELECT user_name FROM 7n3ZZQTFqz.users WHERE user_id = '"{}"''.format(user_id))
+            cursor.execute('SELECT user_name FROM sys.users WHERE user_id = '"{}"''.format(user_id))
             my_result = get_user_name_from_db(user_id)
             return {'status': 'ok', 'user_name': my_result[0]}, 200  # status code
         except IndexError:
@@ -44,7 +44,7 @@ def user(user_id):
             time = datetime.datetime.now()
             # save user into DB
             loggit = """
-                    INSERT INTO 7n3ZZQTFqz.users (user_name, user_id, creation_date)
+                    INSERT INTO sys.users (user_name, user_id, creation_date)
                     VALUES
                         (%s, %s, %s)
                 """
@@ -64,7 +64,7 @@ def user(user_id):
             request_data = request.json
             user_name = request_data["user_name"]
             # updating DB
-            cursor.execute("UPDATE 7n3ZZQTFqz.users SET user_name = %s WHERE user_id = %s", (user_name, user_id))
+            cursor.execute("UPDATE sys.users SET user_name = %s WHERE user_id = %s", (user_name, user_id))
             return {'status': 'ok', 'user_updated': user_name}, 200  # status code
         except IndexError:
             return {'status': 'error', 'reason': 'no such id'}, 500  # status code
@@ -75,7 +75,7 @@ def user(user_id):
             # Check if user exists
             check_user(user_id)
             # updating DB
-            cursor.execute('DELETE FROM 7n3ZZQTFqz.users WHERE user_id = '"{}"''.format(user_id))
+            cursor.execute('DELETE FROM sys.users WHERE user_id = '"{}"''.format(user_id))
             return {'status': 'ok', 'user_deleted': user_id}, 200  # status code
         except IndexError:
             return {'status': 'error', 'reason': 'no such id'}, 500  # status code

@@ -1,6 +1,7 @@
 import requests
 import selenium
 from selenium import webdriver
+from db_connector import cursor
 
 try:
     driver = webdriver.Chrome(executable_path="D:\\chromedriver.exe")
@@ -24,15 +25,14 @@ my_result = data['user_name']
 # Check if all ok
 if (my_result != json_data['user_name']) or (get_user.status_code != 200):
     raise Exception("Test failed!")
-#
-# # Check if data was stored using pymysql
-# try:
-#     cursor.execute('SELECT user_name FROM 7n3ZZQTFqz.users WHERE user_id = '"{}"''.format(get_user_id))
-#     my_result = cursor.fetchall()
-#     id_to_index = int(get_user_id) - 1
-#     get_error = my_result[id_to_index]
-# except IndexError:
-#     raise Exception("Test failed!")
+
+# Check if data was stored using pymysql
+try:
+    cursor.execute('SELECT user_name FROM sys.users WHERE user_id = '"{}"''.format(get_user_id))
+    my_result = cursor.fetchall()
+    get_error = my_result[0]
+except IndexError:
+    raise Exception("Test failed!")
 
 # Check user name with selenium
 driver.get("http://127.0.0.1:5001/users/get_user_data/{}".format(get_user_id))

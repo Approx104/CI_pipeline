@@ -1,5 +1,5 @@
 import requests
-import rest_app
+from db_connector import cursor
 
 
 def test_back(user_id, user_name):
@@ -19,8 +19,12 @@ def test_back(user_id, user_name):
 
     # Query for user
     try:
-        rest_app.check_user(user_id)
+        cursor.execute('SELECT user_name FROM sys.users WHERE user_id = '"{}"''.format(user_id))
+        my_result = cursor.fetchall()
+        get_error = my_result[0]
     except IndexError:
         return False
 
     return True
+
+test_back(6, 'Boris')

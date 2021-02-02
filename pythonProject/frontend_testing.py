@@ -7,6 +7,6 @@ try:
 except selenium.exceptions.WebDriverException:
     raise Exception("Can't find chrome driver!")
 
-driver.get("http://127.0.0.1:5001/users/get_user_data/3")
+driver.get("http://127.0.0.1:5001/users/get_user_data/1")
 user_name = driver.find_element_by_id('user')
 print(user_name.text)
