@@ -9,8 +9,8 @@ except selenium.exceptions.WebDriverException:
     raise Exception("Can't find chrome driver!")
 
 # Get user name and user id
-get_user_id = 6
-get_user_name = 'Dude'
+get_user_id = 8
+get_user_name = "Dude"
 # POST the data
 json_data = {"user_name": get_user_name}
 new_user = requests.post("http://127.0.0.1:5000/users/{}".format(get_user_id), json=json_data)
