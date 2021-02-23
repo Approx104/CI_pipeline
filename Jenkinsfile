@@ -10,24 +10,17 @@ pipeline {
                      branch: 'main'
             }
         }
-        stage('run db connector') {
-            steps {
-                script {
-                    bat 'python pythonProject/db_connector.py'
-                }
-            }
-        }
         stage('run rest app') {
             steps {
                 script {
-                    bat 'start /min python pythonProject/rest_app.py'
+                    bat 'python pythonProject/rest_app.py'
                 }
             }
         }
         stage('run web app') {
             steps {
                 script {
-                    bat 'start /min python pythonProject/web_app.py'
+                    bat 'python pythonProject/web_app.py'
                 }
             }
         }
