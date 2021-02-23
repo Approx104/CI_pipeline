@@ -6,7 +6,7 @@ pipeline {
                 script {
                     properties([pipelineTriggers([pollSCM('* * * * *')])])
                 }
-                git url: 'git://github.com/Approx104/Python-frontend-and-backend-stack',
+                git url: 'git://github.com/Approx104/CI_pipeline',
                      branch: 'main'
             }
         }
@@ -17,31 +17,10 @@ pipeline {
                 }
             }
         }
-        stage('run web app') {
-            steps {
-                script {
-                    bat 'start /min python pythonProject/web_app.py'
-                }
-            }
-        }
         stage('run backend testing') {
             steps {
                 script {
                     bat 'python pythonProject/backend_testing.py'
-                }
-            }
-        }
-        stage('run frontend testing') {
-            steps {
-                script {
-                    bat 'python pythonProject/frontend_testing.py'
-                }
-            }
-        }
-        stage('run combined testing') {
-            steps {
-                script {
-                    bat 'python pythonProject/combined_testing.py'
                 }
             }
         }
