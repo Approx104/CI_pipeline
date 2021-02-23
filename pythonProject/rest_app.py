@@ -3,7 +3,6 @@ from db_connector import cursor, pymysql
 import datetime
 import os
 import signal
-
 # Test jenkins pull
 app = Flask(__name__)
 
