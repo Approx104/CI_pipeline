@@ -24,6 +24,13 @@ pipeline {
                 }
             }
         }
+        stage('run db connector') {
+            steps {
+                script {
+                    bat 'python pythonProject/db_connector.py'
+                }
+            }
+        }
         stage('run backend testing') {
             steps {
                 script {
