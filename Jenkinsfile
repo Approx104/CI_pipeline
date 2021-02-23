@@ -13,14 +13,14 @@ pipeline {
         stage('run rest app') {
             steps {
                 script {
-                    bat 'python pythonProject/rest_app.py'
+                    bat 'start /min python pythonProject/rest_app.py'
                 }
             }
         }
         stage('run web app') {
             steps {
                 script {
-                    bat 'python pythonProject/web_app.py'
+                    bat 'start /min python pythonProject/web_app.py'
                 }
             }
         }
