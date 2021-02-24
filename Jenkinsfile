@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '20', artifactNumToKeepStr: '5', daysToKeepStr: '5'))
+    }
     environment {
         registry = "aranor104/ci_pipeline"
         registryCredential = 'docker_hub'
@@ -9,7 +12,7 @@ pipeline {
         stage('Pull from github') {
             steps {
                 script {
-                    properties([pipelineTriggers([pollSCM('* * * * *')])])
+                    properties([pipelineTriggers([pollSCM('*/30 * * * * ')])])
                 }
                 git url: 'git://github.com/Approx104/CI_pipeline',
                      branch: 'main'
