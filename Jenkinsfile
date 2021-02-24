@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    environment {
+        registry = "aranor104/ci_pipeline"
+        registryCredential = 'docker_hub'
+        dockerImage = ''
+    }
     stages {
         stage('Pull from github') {
             steps {
@@ -30,6 +35,21 @@ pipeline {
                     bat 'python pythonProject/clean_environment.py'
                 }
             }
+        }
+        stage('build and push image') {
+            steps {
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    docker.withRegistry('', registryCredential) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            bat "docker rmi $registry:$BUILD_NUMBER"
         }
     }
 }
