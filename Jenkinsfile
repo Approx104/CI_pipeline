@@ -59,8 +59,8 @@ pipeline {
     }
     post {
         always {
-            bat "docker rmi $registry:$BUILD_NUMBER"
             bat "docker-compose down"
+            bat "docker rmi $registry:$BUILD_NUMBER"
         }
     }
 }
