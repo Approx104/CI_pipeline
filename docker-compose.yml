@@ -1,0 +1,7 @@
+version: '3'
+services:
+  webapp:
+    build: .
+    ports:
+      - "5000:5000"
+    image: "aranor104/ci_pipeline:${IMAGE_TAG}"

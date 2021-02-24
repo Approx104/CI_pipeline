@@ -51,10 +51,16 @@ pipeline {
                 bat "echo IMAGE_TAG=${BUILD_NUMBER} > .env"
             }
         }
+        stage('docker compose') {
+            steps {
+                bat "docker-compose up -d"
+            }
+        }
     }
     post {
         always {
             bat "docker rmi $registry:$BUILD_NUMBER"
+            bat "docker-compose down"
         }
     }
 }
