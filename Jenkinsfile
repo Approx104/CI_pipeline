@@ -56,6 +56,13 @@ pipeline {
                 bat "docker-compose up -d"
             }
         }
+        stage('test dockerized app') {
+            steps {
+                script {
+                    bat 'python pythonProject/docker_backend_testing.py'
+                }
+            }
+        }
     }
     post {
         always {
