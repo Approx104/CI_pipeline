@@ -16,6 +16,8 @@ pipeline {
                 }
                 git url: 'git://github.com/Approx104/CI_pipeline',
                      branch: 'main'
+                git url: 'git://github.com/Approx104/HELM-Chart',
+                     branch: 'main'
             }
         }
         stage('run rest app') {
@@ -66,11 +68,29 @@ pipeline {
                 }
             }
         }
+        stage('chart install') {
+            steps {
+                bat "helm install my-release ./mychart"
+            }
+        }
+        stage('start tunnel') {
+            steps {
+                bat "minikube service rest-app-service"
+            }
+        }
+        stage('test deployed app') {
+            steps {
+                script {
+                    bat 'python pythonProject/k8s_backend_testing.py'
+                }
+            }
+        }
     }
     post {
         always {
             bat "docker-compose down"
             bat "docker rmi $registry:$BUILD_NUMBER"
+            bat "helm delete"
         }
     }
 }
