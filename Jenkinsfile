@@ -68,12 +68,12 @@ pipeline {
         }
         stage('chart install') {
             steps {
-                bat "helm install my-release ./mychart"
+                bat "helm install my-release ./mychart –set image.repository=”aranor104/ci_pipeline”:${BUILD_NUMBER}"
             }
         }
         stage('start tunnel') {
             steps {
-                bat "minikube service rest-app-service"
+                bat "minikube service rest-app-service –url > k8s_url.txt"
             }
         }
         stage('test deployed app') {
@@ -88,7 +88,7 @@ pipeline {
         always {
             bat "docker-compose down"
             bat "docker rmi $registry:$BUILD_NUMBER"
-            bat "helm delete"
+            bat "helm delete my-release"
         }
     }
 }
