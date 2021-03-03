@@ -16,8 +16,6 @@ pipeline {
                 }
                 git url: 'git://github.com/Approx104/CI_pipeline',
                      branch: 'main'
-                git url: 'git://github.com/Approx104/HELM-Chart',
-                     branch: 'main'
             }
         }
         stage('run rest app') {
