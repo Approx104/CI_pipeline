@@ -1,18 +1,20 @@
 import requests
 from db_connector import cursor
 
-file = open("./k8s_url.txt", "r")
-url = file.read()
+with open('./k8s_url.txt', 'r') as f:
+    lines = f.read().splitlines()
+    last_line = lines[-1]
+
 
 def test_back(user_id, user_name):
     # POST a new user to API
     json_data = {"user_name": user_name}
-    new_user = requests.post("http://{}/users/{}".format(url, user_id), json=json_data)
+    new_user = requests.post("{}/users/{}".format(last_line, user_id), json=json_data)
     if new_user.status_code == 500:
         return False
 
     # GET user
-    get_user = requests.get("http://{}/users/{}".format(url, user_id))
+    get_user = requests.get("{}/users/{}".format(last_line, user_id))
     data = get_user.json()
     my_result = data['user_name']
     # Check if user name matches and response code is good
