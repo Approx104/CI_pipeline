@@ -74,6 +74,7 @@ pipeline {
         stage('start tunnel') {
             steps {
                 bat "start cmd /c minikube service rest-app-service --url ^> ./pythonProject/k8s_url.txt"
+                sleep 10
             }
         }
         stage('test deployed app') {
