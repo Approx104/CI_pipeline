@@ -73,7 +73,7 @@ pipeline {
         }
         stage('start tunnel') {
             steps {
-                bat "minikube service rest-app-service --url > k8s_url.txt"
+                bat "start /min minikube service rest-app-service --url > k8s_url.txt"
             }
         }
         stage('test deployed app') {
