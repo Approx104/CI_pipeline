@@ -1,7 +1,7 @@
 import requests
 from db_connector import cursor
 
-file = open("k8s_url.txt", "r")
+file = open("./k8s_url.txt", "r")
 url = file.read()
 
 def test_back(user_id, user_name):
