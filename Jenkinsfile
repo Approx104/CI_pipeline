@@ -68,7 +68,7 @@ pipeline {
         }
         stage('chart install') {
             steps {
-                bat "helm install my-release ./mychart –set image.repository="aranor104/ci_pipeline":${BUILD_NUMBER}"
+                bat 'helm install my-release ./mychart –set image.repository="aranor104/ci_pipeline":${BUILD_NUMBER}'
             }
         }
         stage('start tunnel') {
