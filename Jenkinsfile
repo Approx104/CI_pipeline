@@ -56,7 +56,7 @@ pipeline {
         }
         stage('docker compose') {
             steps {
-                bat "docker-compose up -d -p 5000:5000"
+                bat "docker-compose up -d"
             }
         }
         stage('test dockerized app') {
