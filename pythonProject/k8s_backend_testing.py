@@ -3,7 +3,7 @@ import time
 from db_connector import cursor
 
 time.sleep(10)
-with open('./k8s_url.txt', 'r') as f:
+with open(r'C:\\Users\arano\.jenkins\workspace\CI_pipeline_main\pythonProject\k8s_url.txt', 'r') as f:
     lines = f.read().splitlines()
     last_line = lines[-1]
 
